@@ -1,0 +1,59 @@
+/* feedback.css */
+
+.Feedback_Form {
+  padding-top: 10%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.Feedback_Form label {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.Feedback_Form input,
+.Feedback_Form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+
+.Feedback_Form textarea {
+  resize: vertical;
+}
+
+.Feedback_Form input[type="submit"] {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.Feedback_Form input[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+
+.Feedback_Form form {
+
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+  .Feedback_Form {
+    padding: 10px;
+  }
+}

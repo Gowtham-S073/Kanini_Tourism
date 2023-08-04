@@ -1,0 +1,49 @@
+/* Footer.css */
+
+.FooterContainer {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: #d0d8ff;
+  border-radius: 0.5rem;
+  padding: 2.5rem;
+}
+
+.FooterContainer ul {
+  display: flex;
+  list-style-type: none;
+  gap: 2rem;
+}
+
+.FooterContainer li a {
+  text-decoration: none;
+  color: black;
+  transition: 0.3s ease-in-out;
+}
+
+.FooterContainer li a:hover {
+  color: #302ce9;
+}
+
+.FooterContainer svg {
+  font-size: 1.3rem;
+  transition: 0.3s ease-in-out;
+}
+
+.FooterContainer svg:hover {
+  color: #302ce9;
+}
+
+@media screen and (min-width: 280px) and (max-width: 1024px) {
+  .FooterContainer {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .FooterContainer ul {
+    flex-direction: column;
+  }
+
+  .FooterContainer .social__links {
+    flex-direction: row;
+  }
+}
