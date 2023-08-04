@@ -12,8 +12,8 @@ import Services from './Components/Servic/Service';
 import Testimonials from './Components/Hero/Testimonial';
 import Login from './Components/Login/Login';
 import Register from './Components/Register/Register';
-import { motion } from "framer-motion";
-import Parallax from './Components/Hero/Parallax';
+import GalleryPage from './Components/GalleryPage/GalleryPage';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -60,7 +60,7 @@ function App() {
           {/* <Recommend></Recommend> */}
           <Login></Login> 
           <Register></Register>
-          <Parallax></Parallax>
+          <GalleryPage></GalleryPage>
           <Footer></Footer>
           <ScrollToTop></ScrollToTop>
           {/* <Slider images={images} /> */}
