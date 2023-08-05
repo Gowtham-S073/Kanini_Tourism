@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Kanini\\C#\\MK\\TripBooking\\TripBooking\\TripBooking.csproj": {}
+    "C:\\Users\\gowtham\\Desktop\\bigbamg3\\Kanini_Tourism\\Front-End\\MakeYourTrip-master\\MakeYourTrip\\TripBooking.csproj": {}
   },
   "projects": {
-    "D:\\Kanini\\C#\\MK\\TripBooking\\TripBooking\\TripBooking.csproj": {
+    "C:\\Users\\gowtham\\Desktop\\bigbamg3\\Kanini_Tourism\\Front-End\\MakeYourTrip-master\\MakeYourTrip\\TripBooking.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Kanini\\C#\\MK\\TripBooking\\TripBooking\\TripBooking.csproj",
+        "projectUniqueName": "C:\\Users\\gowtham\\Desktop\\bigbamg3\\Kanini_Tourism\\Front-End\\MakeYourTrip-master\\MakeYourTrip\\TripBooking.csproj",
         "projectName": "TripBooking",
-        "projectPath": "D:\\Kanini\\C#\\MK\\TripBooking\\TripBooking\\TripBooking.csproj",
+        "projectPath": "C:\\Users\\gowtham\\Desktop\\bigbamg3\\Kanini_Tourism\\Front-End\\MakeYourTrip-master\\MakeYourTrip\\TripBooking.csproj",
         "packagesPath": "C:\\Users\\gowtham\\.nuget\\packages\\",
-        "outputPath": "D:\\Kanini\\C#\\MK\\TripBooking\\TripBooking\\obj\\",
+        "outputPath": "C:\\Users\\gowtham\\Desktop\\bigbamg3\\Kanini_Tourism\\Front-End\\MakeYourTrip-master\\MakeYourTrip\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -49,13 +49,17 @@
               "target": "Package",
               "version": "[7.0.9, )"
             },
+            "Microsoft.AspNetCore.Identity": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
               "version": "[7.0.9, )"
             },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
-              "version": "[7.0.5, )"
+              "version": "[7.0.2, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
@@ -77,9 +81,9 @@
               "target": "Package",
               "version": "[7.0.9, )"
             },
-            "Microsoft.Extensions.Configuration": {
+            "Microsoft.VisualStudio.Web.CodeGeneration": {
               "target": "Package",
-              "version": "[7.0.0, )"
+              "version": "[7.0.8, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",

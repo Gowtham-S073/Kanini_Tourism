@@ -1,136 +1,165 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using TripBooking.Interfaces;
+using TripBooking.Models.DTO;
 using TripBooking.Models;
-using TripBooking.DTO;
-using TripBooking.Interfaces;
-using TripBooking.CustomExceptions;
 using System.Security.Cryptography;
 using System.Text;
-using Microsoft.IdentityModel.Tokens;
-using TripBooking.Repositories;
 
 namespace TripBooking.Services
 {
-    public class UserService : IUser
+    public class UserService : IUserService
     {
-        private readonly UserRepository _userRepository;
+        /*        private readonly IUser _userRepo;
+        */
+        private readonly ICrud<User, UserDTO> _userRepo;
 
-        public UserService(UserRepository userRepository)
+        private readonly ITokenGenerate _tokenService;
+
+        public UserService(ICrud<User, UserDTO> userRepo, ITokenGenerate tokenService)
         {
-            _userRepository = userRepository;
+            _userRepo = userRepo;
+            _tokenService = tokenService;
         }
-
-        public async Task<User> GetUserById(int userId)
+        public async Task<UserDTO> LogIN(UserDTO userDTO)
         {
-            var user = await _userRepository.GetUserById(userId);
-            if (user == null)
+            UserDTO user = null;
+            var userData = await _userRepo.GetValue(userDTO);
+            
+            if (userData != null)
             {
-                throw new UserNotFoundException($"User with ID '{userId}' not found.");
+                if (userData.IsActive == false)
+                {
+                    return null;
+                }
+                var hmac = new HMACSHA512(userData.Hashkey);
+                var userPass = hmac.ComputeHash(Encoding.UTF8.GetBytes(userDTO.Password));
+                for (int i = 0; i < userPass.Length; i++)
+                {
+                    if (userPass[i] != userData.Password[i])
+                        return null;
+                }
+                user = new UserDTO();
+                user.Username = userData.Username;
+                user.Role = userData.Role;
+                user.Token = _tokenService.GenerateToken(user);
+                user.Name = userData.Name;
+                user.Email = userData.Email;
+                user.Phone = userData.Phone;
             }
-
             return user;
         }
 
-        public async Task<User> GetUserByUsername(string username)
+        public async Task<UserDTO> Register(UserRegisterDTO userRegisterDTO)
         {
-            var user = await _userRepository.GetUserByUsername(username);
-            if (user == null)
-            {
-                throw new UserNotFoundException($"User with username '{username}' not found.");
-            }
-
-            return user;
-        }
-
-        public async Task<User> AddUser(UserDTO userDto)
-        {
-            var existingUser = await _userRepository.GetUserByUsername(userDto.Username);
-            if (existingUser != null)
-            {
-                throw new UserAlreadyExistsException($"Username '{userDto.Username}' already exists.");
-            }
-
+            UserDTO user = null;
             using (var hmac = new HMACSHA512())
             {
-                var newUser = new User
+                if(userRegisterDTO.UserPassword == null)
                 {
-                    Username = userDto.Username,
-                    Phone = userDto.Phone,
-                    Email = userDto.Email,
-                    Name = userDto.Name,
-                    Hashkey = hmac.Key,
-                    Password = hmac.ComputeHash(Encoding.UTF8.GetBytes(userDto.Password)),
-                    Role = userDto.Role
-                };
-
-                await _userRepository.AddUser(newUser);
-                return newUser;
-            }
-        }
-
-        public async Task<User> UpdateUser(UserDTO userDto)
-        {
-            var user = await _userRepository.GetUserById(userDto.Id);
-            if (user == null)
-            {
-                throw new UserNotFoundException($"User with ID '{userDto.Id}' not found.");
-            }
-
-            user.Name = userDto.Name;
-            user.Phone = userDto.Phone;
-            user.Email = userDto.Email;
-
-            if (!string.IsNullOrEmpty(userDto.Password))
-            {
-                using (var hmac = new HMACSHA512(user.Hashkey))
+                    return null;
+                }
+                userRegisterDTO.Password = hmac.ComputeHash(Encoding.UTF8.GetBytes(userRegisterDTO.UserPassword));
+                Console.WriteLine(userRegisterDTO.Password);
+                userRegisterDTO.Hashkey = hmac.Key;
+                if(userRegisterDTO.Role== "Agent")
                 {
-                    user.Password = hmac.ComputeHash(Encoding.UTF8.GetBytes(userDto.Password));
+                    userRegisterDTO.IsActive = false;
+                }
+                var resultUser = await _userRepo.Add(userRegisterDTO);
+                if (resultUser != null)
+                {
+                    user = new UserDTO();
+                    user.Username = resultUser.Username;
+                    user.Role = resultUser.Role;
+                    user.Token = _tokenService.GenerateToken(user);
                 }
             }
-
-            await _userRepository.UpdateUser(user);
             return user;
         }
 
-        public async Task<bool> UpdateUserPassword(int userId, string oldPassword, string newPassword)
+
+        public async Task<UserDTO> Update(UserRegisterDTO user)
         {
-            var user = await _userRepository.GetUserById(userId);
-            if (user == null)
+            var users = await _userRepo.GetAll();
+            User myUser = users.SingleOrDefault(u => u.Username == user.Username);
+            if (myUser != null)
             {
-                throw new UserNotFoundException($"User with ID '{userId}' not found.");
-            }
-
-            using (var hmac = new HMACSHA512(user.Hashkey))
-            {
-                var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(oldPassword));
-
-                for (int i = 0; i < computedHash.Length; i++)
+                myUser.Name = user.Name;
+                myUser.Phone = user.Phone;
+                var hmac = new HMACSHA512();
+                myUser.Password = hmac.ComputeHash(Encoding.UTF8.GetBytes(user.UserPassword));
+                myUser.Hashkey = hmac.Key;
+                myUser.Role = user.Role;
+                myUser.Email = user.Email;
+                UserDTO userDTO = new UserDTO();
+                userDTO.Username = myUser.Username;
+                userDTO.Role = myUser.Role;
+                userDTO.Token = _tokenService.GenerateToken(userDTO);
+                var newUser = _userRepo.Update(myUser);
+                if (newUser != null)
                 {
-                    if (computedHash[i] != user.Password[i])
-                    {
-                        throw new InvalidPasswordException("Invalid old password.");
-                    }
+                    return userDTO;
                 }
-
-                user.Password = hmac.ComputeHash(Encoding.UTF8.GetBytes(newPassword));
+                return null;
             }
-
-            return await _userRepository.UpdateUserPassword(user);
+            return null;
         }
 
-        private UserDTO MapToUserDTO(User user)
+        public async Task<bool> Update_Password(UserDTO userDTO)
         {
-            return new UserDTO
+            User user = new User();
+            var users = await _userRepo.GetAll();
+            var myUser = users.SingleOrDefault(u => u.Username == userDTO.Username);
+            if (myUser != null)
             {
-                Id = user.Id,
-                Username = user.Username,
-                Phone = user.Phone,
-                Email = user.Email,
-                Name = user.Name,
-                Role = user.Role
-            };
+                var hmac = new HMACSHA512();
+                user.Password = hmac.ComputeHash(Encoding.UTF8.GetBytes(userDTO.Password));
+                user.Hashkey = hmac.Key;
+                user.Name = myUser.Name;
+                user.Role = myUser.Role;
+                user.Phone = myUser.Phone;
+                user.Email = myUser.Email;
+                var newUser = _userRepo.Update(user);
+                if (newUser != null)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public async Task<User?> ApproveAgent(User agent)
+        {
+            agent.IsActive= true;
+            var newagent =await _userRepo.Update(agent);
+            if (newagent != null)
+            {
+                return newagent;
+            }
+
+            return null;
+        }
+
+        public async Task<List<User>?> GetUnApprovedAgent()
+        {
+            var users = await _userRepo.GetAll();
+            if(users != null)
+            {
+                var unApprovedAgent = users.Where(user => user.IsActive == false).ToList();
+                return unApprovedAgent;
+            }
+            return null;
+            
+
+        }
+
+        public async Task<User?> DeleteAgent(UserDTO user)
+        {
+            var deleteduser = await _userRepo.Delete(user);
+            if (deleteduser != null)
+            {
+                return deleteduser;
+            }
+            return null;
         }
     }
 }

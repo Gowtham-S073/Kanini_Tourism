@@ -1,4 +1,6 @@
-﻿namespace TripBooking.Interfaces
+﻿using TripBooking.Models;
+
+namespace TripBooking.Interfaces
 {
     public interface ICrud<T, K>
     {

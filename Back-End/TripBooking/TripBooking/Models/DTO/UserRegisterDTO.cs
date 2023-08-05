@@ -1,7 +1,8 @@
 ﻿namespace TripBooking.Models.DTO
 {
-    public class UserRegisterDTO
+    public class UserRegisterDTO : User
     {
-        public string UserPassword { get; set; }
+        public string? UserPassword { get; set; }
+
     }
 }

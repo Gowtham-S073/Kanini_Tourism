@@ -6,118 +6,81 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TripBooking.Models;
+using TripBooking.Exceptions;
+using TripBooking.Interfaces;
+using TripBooking.Models.DTO;
 
 namespace TripBooking.Controllers
 {
-    [Route("api/[controller]")]
+
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class BookingsController : ControllerBase
     {
-        private readonly TripBookingContext _context;
+        private readonly IBookingService _BookingService;
 
-        public BookingsController(TripBookingContext context)
+
+        public BookingsController(IBookingService BookingService)
         {
-            _context = context;
+            _BookingService = BookingService;
         }
 
-        // GET: api/Bookings
+        [ProducesResponseType(typeof(Booking), StatusCodes.Status200OK)]//Success Response
+        [ProducesResponseType(StatusCodes.Status404NotFound)]//Failure Response
+        [HttpPost]
+        public async Task<ActionResult<Booking>> Add_Booking(Booking newHotel)
+        {
+            /* try
+             {*/
+            /* if (Booking.Id <=0)
+                 throw new InvalidPrimaryID();*/
+            var myBooking = await _BookingService.Add_Booking(newHotel);
+            if (myBooking != null)
+                return Created("Booking created Successfully", myBooking);
+            return BadRequest(new Error(1, $"Booking {newHotel.Id} is Present already"));
+            /*}
+            catch (InvalidPrimaryID ip)
+            {
+                return BadRequest(new Error(2, ip.Message));
+            }
+            catch (InvalidSqlException ise)
+            {
+                return BadRequest(new Error(25, ise.Message));
+            }*/
+        }
+
+
+        [ProducesResponseType(typeof(Booking), StatusCodes.Status200OK)]//Success Response
+        [ProducesResponseType(StatusCodes.Status404NotFound)]//Failure Response
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Booking>>> GetBookings()
+
+        public async Task<ActionResult<List<Booking>>> Get_All_Booking()
         {
-          if (_context.Bookings == null)
-          {
-              return NotFound();
-          }
-            return await _context.Bookings.ToListAsync();
+            var myBookings = await _BookingService.Get_All_Booking();
+            if (myBookings?.Count > 0)
+                return Ok(myBookings);
+            return BadRequest(new Error(10, "No Bookings are Existing"));
         }
 
-        // GET: api/Bookings/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Booking>> GetBooking(int id)
+        [ProducesResponseType(typeof(Booking), StatusCodes.Status200OK)]//Success Response
+        [ProducesResponseType(StatusCodes.Status404NotFound)]//Failure Response
+        [HttpPost]
+
+        public async Task<ActionResult<Booking>> View_Booking(IdDTO idDTO)
         {
-          if (_context.Bookings == null)
-          {
-              return NotFound();
-          }
-            var booking = await _context.Bookings.FindAsync(id);
-
-            if (booking == null)
-            {
-                return NotFound();
-            }
-
-            return booking;
-        }
-
-        // PUT: api/Bookings/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutBooking(int id, Booking booking)
-        {
-            if (id != booking.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(booking).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                if (idDTO.IdInt <= 0)
+                    return BadRequest(new Error(4, "Enter Valid Booking ID"));
+                var myBooking = await _BookingService.View_Booking(idDTO);
+                if (myBooking != null)
+                    return Created("Booking", myBooking);
+                return BadRequest(new Error(9, $"There is no Booking present for the id {idDTO.IdInt}"));
             }
-            catch (DbUpdateConcurrencyException)
+            catch (InvalidSqlException ise)
             {
-                if (!BookingExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return BadRequest(new Error(25, ise.Message));
             }
-
-            return NoContent();
-        }
-
-        // POST: api/Bookings
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Booking>> PostBooking(Booking booking)
-        {
-          if (_context.Bookings == null)
-          {
-              return Problem("Entity set 'TripBookingContext.Bookings'  is null.");
-          }
-            _context.Bookings.Add(booking);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetBooking", new { id = booking.Id }, booking);
-        }
-
-        // DELETE: api/Bookings/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteBooking(int id)
-        {
-            if (_context.Bookings == null)
-            {
-                return NotFound();
-            }
-            var booking = await _context.Bookings.FindAsync(id);
-            if (booking == null)
-            {
-                return NotFound();
-            }
-
-            _context.Bookings.Remove(booking);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool BookingExists(int id)
-        {
-            return (_context.Bookings?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

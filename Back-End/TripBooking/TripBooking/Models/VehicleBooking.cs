@@ -1,19 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
 
-namespace TripBooking.Models
+namespace TripBooking.Models;
+
+public partial class VehicleBooking
 {
-    public partial class VehicleBooking
-    {
-        public int Id { get; set; }
+    public int Id { get; set; }
 
-        [Required(ErrorMessage = "VehicleDetailsId is required.")]
-        public int? VehicleDetailsId { get; set; }
+    public int? VehicleDetailsId { get; set; }
 
-        [Required(ErrorMessage = "BookingId is required.")]
-        public int? BookingId { get; set; }
+    public int? BookingId { get; set; }
 
-        public virtual Booking? Booking { get; set; }
+    public virtual Booking? Booking { get; set; }
 
-        public virtual VehicleDetailsMaster? VehicleDetails { get; set; }
-    }
+    public virtual VehicleDetails? VehicleDetails { get; set; }
 }

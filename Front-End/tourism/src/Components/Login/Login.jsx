@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { FaUser, FaLock } from 'react-icons/fa'; 
-import logo from '../../Assests/logo.png';
+import { FaUser, FaLock } from 'react-icons/fa';
 import './Login.css';
 
 const Login = () => {
@@ -16,46 +15,52 @@ const Login = () => {
   };
 
   const isFormValid = () => {
-    // Check if username and password are not empty
-    if (username.trim() === '' || password.trim() === '') {
-      return false;
-    }
+    const isUsernameValid = username.trim() !== '';
+    const isPasswordValid = password.trim() !== '';
 
-    // Password validation
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:'",<.>/?]).{8,}$/;
-    return passwordRegex.test(password);
+    return isUsernameValid && isPasswordValid;
+  };
+
+  const handleLoginClick = () => {
+    if (isFormValid()) {
+      // Perform login action here (e.g., API call, authentication)
+      alert('Logged in successfully!');
+    } else {
+      alert('Please fill in all fields.');
+    }
   };
 
   return (
     <div className="login-page">
-      <div className="logo">
-        <img src={logo} alt="Website Logo" />
-      </div>
       <div className="login-form">
         <h2>Login</h2>
         <div className="form-group">
-          <label htmlFor="username">
-          <FaUser />Username:</label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={handleUsernameChange}
-            placeholder="Enter your username"
-          />
+          <label htmlFor="username" className="icon-input">
+            UserName
+            <FaUser />
+            <input
+              type="text"
+              id="username"
+              value={username}
+              onChange={handleUsernameChange}
+              placeholder="Username"
+            />
+          </label>
         </div>
         <div className="form-group">
-          <label htmlFor="password">
-            <FaLock/> Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={handlePasswordChange}
-            placeholder="Enter your password"
-          />
+          <label htmlFor="password" className="icon-input">
+            Password
+            <FaLock />
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={handlePasswordChange}
+              placeholder="Password"
+            />
+          </label>
         </div>
-        <button className="btn btn-primary" disabled={!isFormValid()}>
+        <button className="btn btn-primary" onClick={handleLoginClick} disabled={!isFormValid()}>
           Login
         </button>
       </div>

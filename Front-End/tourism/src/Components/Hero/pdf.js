@@ -1,32 +1,11 @@
 import React, { useRef } from 'react';
 import jsPDF from 'jspdf';
 import html2canvas from 'jspdf-html2canvas';
-import { Document, Page, View, Text, Image, StyleSheet, PDFViewer } from '@react-pdf/renderer';
 import logo from '../../Assests/logo.png';
 export default function Pdf() {
   const pdfRef = useRef();
 
   
-const styles = StyleSheet.create({
-    page: {
-      fontFamily: 'Helvetica',
-      padding: 20,
-    },
-    header: {
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      marginBottom: 20,
-    },
-    logo: {
-      height: 100,
-      width: 100,
-    },
-    title: {
-      fontSize: 24,
-      fontWeight: 'bold',
-    },
-  });
 
   const downloadPDF = () => {
     const input = pdfRef.current;
@@ -68,21 +47,6 @@ const styles = StyleSheet.create({
       <div className='row text-center mt-5'>
         <button className='btn btn-primary' onClick={downloadPDF}>Download PDF</button>
       </div>
-
-      <PDFViewer>
-      <Document>
-        <Page size="A4" style={styles.page}>
-          <View style={styles.header}>
-            <Image src={logo} style={styles.logo} />
-            <Text style={styles.title}>Invoice</Text>
-          </View>
-          <View>
-            {/* Add your invoice content here */}
-            <Text>Invoice content goes here.</Text>
-          </View>
-        </Page>
-      </Document>
-    </PDFViewer>
     </>
   );
 }
