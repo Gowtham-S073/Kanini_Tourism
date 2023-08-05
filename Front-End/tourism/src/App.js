@@ -14,9 +14,28 @@ import Login from './Components/Login/Login';
 import Register from './Components/Register/Register';
 import GalleryPage from './Components/GalleryPage/GalleryPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import Pdf from './Components/Hero/pdf';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const [loader, setLoader] = useState(false);
+
+  
+  const downloadPDF = () =>{
+    const capture = document.querySelector('.actual-receipt');
+    setLoader(true);
+    html2canvas(capture).then((canvas)=>{
+      const imgData = canvas.toDataURL('img/png');
+      const doc = new jsPDF('p', 'mm', 'a4');
+      const componentWidth = doc.internal.pageSize.getWidth();
+      const componentHeight = doc.internal.pageSize.getHeight();
+      doc.addImage(imgData, 'PNG', 0, 0, componentWidth, componentHeight);
+      setLoader(false);
+      doc.save('receipt.pdf');
+    })
+  }
 
   useEffect(() => {
     setTimeout(() => {
@@ -60,11 +79,12 @@ function App() {
           {/* <Recommend></Recommend> */}
           <Login></Login> 
           <Register></Register>
+          <Pdf></Pdf>
           <GalleryPage></GalleryPage>
           <Footer></Footer>
           <ScrollToTop></ScrollToTop>
           {/* <Slider images={images} /> */}
-         
+
         </div>
       )}
     </>

@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+
 function moveCursor(e) {
   let innerCursor = document.querySelector('.inner-cursor');
   let outerCursor = document.querySelector('.outer-cursor');
