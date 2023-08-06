@@ -10,6 +10,8 @@
 
         public int? DayNumber { get; set; }
 
+        public string? Itinerary { get; set; }
+
         public IFormFile? FormFile { get; set; }
 
     }

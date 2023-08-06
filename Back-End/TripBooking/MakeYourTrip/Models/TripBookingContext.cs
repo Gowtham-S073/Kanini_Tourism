@@ -15,7 +15,7 @@ public partial class TripBookingContext : DbContext
     {
     }
 
-    public virtual DbSet<Booking> Bookings { get; set; }
+    public virtual DbSet<Booking> Booking { get; set; }
 
     public virtual DbSet<Hotel> Hotel { get; set; }
 

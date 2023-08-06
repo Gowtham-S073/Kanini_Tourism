@@ -30,8 +30,14 @@ namespace TripBooking.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Feedback")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("No_of_person")
+                        .HasColumnType("int");
 
                     b.Property<int?>("PackageId")
                         .HasColumnType("int");
@@ -48,7 +54,7 @@ namespace TripBooking.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Bookings");
+                    b.ToTable("Booking");
                 });
 
             modelBuilder.Entity("TripBooking.Models.Gallery", b =>
@@ -106,6 +112,9 @@ namespace TripBooking.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("Duration")
+                        .HasColumnType("int");
 
                     b.Property<string>("Imagepath")
                         .HasColumnType("nvarchar(max)");

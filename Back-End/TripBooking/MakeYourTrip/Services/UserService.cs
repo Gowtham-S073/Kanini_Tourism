@@ -64,6 +64,10 @@ namespace TripBooking.Services
                 {
                     userRegisterDTO.IsActive = false;
                 }
+                else
+                {
+                    userRegisterDTO.IsActive = true;
+                }
                 var resultUser = await _userRepo.Add(userRegisterDTO);
                 if (resultUser != null)
                 {

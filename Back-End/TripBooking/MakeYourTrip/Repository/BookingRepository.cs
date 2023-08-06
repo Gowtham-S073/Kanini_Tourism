@@ -19,10 +19,10 @@ namespace TripBooking.Repos
         {
             /* try
              {*/
-            var newBooking = _context.Bookings.SingleOrDefault(h => h.Id == item.Id);
+            var newBooking = _context.Booking.SingleOrDefault(h => h.Id == item.Id);
             if (newBooking == null)
             {
-                await _context.Bookings.AddAsync(item);
+                await _context.Booking.AddAsync(item);
                 await _context.SaveChangesAsync();
                 return item;
             }
@@ -40,11 +40,11 @@ namespace TripBooking.Repos
             try
             {
 
-                var Bookings = await _context.Bookings.ToListAsync();
+                var Bookings = await _context.Booking.ToListAsync();
                 var myBooking = Bookings.FirstOrDefault(h => h.Id == item.IdInt);
                 if (myBooking != null)
                 {
-                    _context.Bookings.Remove(myBooking);
+                    _context.Booking.Remove(myBooking);
                     await _context.SaveChangesAsync();
                     return myBooking;
                 }
@@ -61,7 +61,7 @@ namespace TripBooking.Repos
         {
             try
             {
-                var Bookings = await _context.Bookings.ToListAsync();
+                var Bookings = await _context.Booking.ToListAsync();
                 if (Bookings != null)
                     return Bookings;
             }
@@ -76,7 +76,7 @@ namespace TripBooking.Repos
         {
             try
             {
-                var Bookings = await _context.Bookings.ToListAsync();
+                var Bookings = await _context.Booking.ToListAsync();
                 var Booking = Bookings.SingleOrDefault(h => h.Id == item.IdInt);
                 if (Booking != null)
                     return Booking;
@@ -92,7 +92,7 @@ namespace TripBooking.Repos
         {
             try
             {
-                var Bookings = await _context.Bookings.ToListAsync();
+                var Bookings = await _context.Booking.ToListAsync();
                 var Booking = Bookings.SingleOrDefault(h => h.Id == item.Id);
                 if (Booking != null)
                 {
@@ -102,7 +102,7 @@ namespace TripBooking.Repos
                     Booking.TotalAmount = item.TotalAmount != null ? item.TotalAmount : Booking.TotalAmount;
 
 
-                    _context.Bookings.Update(Booking);
+                    _context.Booking.Update(Booking);
                     await _context.SaveChangesAsync();
                     return Booking;
                 }

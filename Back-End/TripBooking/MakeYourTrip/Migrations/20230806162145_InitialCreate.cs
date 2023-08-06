@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -118,6 +119,7 @@ namespace TripBooking.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PackagePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     PackageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Duration = table.Column<int>(type: "int", nullable: true),
                     TravelAgentId = table.Column<int>(type: "int", nullable: true),
                     Region = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Imagepath = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -185,7 +187,7 @@ namespace TripBooking.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Bookings",
+                name: "Booking",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -193,18 +195,20 @@ namespace TripBooking.Migrations
                     UserId = table.Column<int>(type: "int", nullable: true),
                     PackageId = table.Column<int>(type: "int", nullable: true),
                     Feedback = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: true)
+                    TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    No_of_person = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Bookings", x => x.Id);
+                    table.PrimaryKey("PK_Booking", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Bookings_Package_PackageId",
+                        name: "FK_Booking_Package_PackageId",
                         column: x => x.PackageId,
                         principalTable: "Package",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Bookings_Users_UserId",
+                        name: "FK_Booking_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id");
@@ -250,9 +254,9 @@ namespace TripBooking.Migrations
                 {
                     table.PrimaryKey("PK_RoomBookings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_RoomBookings_Bookings_BookingId",
+                        name: "FK_RoomBookings_Booking_BookingId",
                         column: x => x.BookingId,
-                        principalTable: "Bookings",
+                        principalTable: "Booking",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_RoomBookings_RoomDetails_RoomDetailsId",
@@ -274,9 +278,9 @@ namespace TripBooking.Migrations
                 {
                     table.PrimaryKey("PK_VehicleBookings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_VehicleBookings_Bookings_BookingId",
+                        name: "FK_VehicleBookings_Booking_BookingId",
                         column: x => x.BookingId,
-                        principalTable: "Bookings",
+                        principalTable: "Booking",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_VehicleBookings_VehicleDetails_VehicleDetailsId",
@@ -286,13 +290,13 @@ namespace TripBooking.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Bookings_PackageId",
-                table: "Bookings",
+                name: "IX_Booking_PackageId",
+                table: "Booking",
                 column: "PackageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Bookings_UserId",
-                table: "Bookings",
+                name: "IX_Booking_UserId",
+                table: "Booking",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -380,7 +384,7 @@ namespace TripBooking.Migrations
                 name: "RoomDetails");
 
             migrationBuilder.DropTable(
-                name: "Bookings");
+                name: "Booking");
 
             migrationBuilder.DropTable(
                 name: "VehicleDetails");

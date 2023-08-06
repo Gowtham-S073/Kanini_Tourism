@@ -11,6 +11,8 @@ public partial class Package
 
     public string? PackageName { get; set; }
 
+    public int? Duration { get; set; }
+
     public int? TravelAgentId { get; set; }
 
     public string? Region { get; set; }

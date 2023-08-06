@@ -18,7 +18,6 @@ namespace TripBooking.Services
             _PostGalleryRepo=postGalleryRepo;
             _imageRepo=imageRepo;
             _hostEnvironment=hostEnvironment;
-
         }
 
 

@@ -130,6 +130,7 @@ namespace TripBooking.Repos
             newPackageMaster.PackageName = packageFormModel.PackageName;
             newPackageMaster.TravelAgentId = packageFormModel.TravelAgentId;
             newPackageMaster.Region = packageFormModel.Region;
+            newPackageMaster.Duration= packageFormModel.Duration;
             newPackageMaster.Imagepath = packageFormModel.Imagepath;
 
 

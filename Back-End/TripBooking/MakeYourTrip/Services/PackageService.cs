@@ -78,6 +78,7 @@ namespace TripBooking.Services
                     PackageName = image.PackageName,
                     TravelAgentId = image.TravelAgentId,
                     Region = image.Region,
+                    Duration = image.Duration,
                     Imagepath = Convert.ToBase64String(imageBytes)
                 };
                 imageList.Add(tourData);

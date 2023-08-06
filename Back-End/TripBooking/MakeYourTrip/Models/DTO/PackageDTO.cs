@@ -13,6 +13,8 @@
         public string? Imagepath { get; set; }
 
 
+        public int? Duration { get; set; }
+
         public List<PlaceDTO>? placeList { get; set; }
 
 

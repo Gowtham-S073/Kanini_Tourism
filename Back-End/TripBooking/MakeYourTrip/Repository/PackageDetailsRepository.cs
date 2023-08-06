@@ -10,7 +10,7 @@ using Microsoft.Extensions.Hosting;
 namespace TripBooking.Repos
 {
     public class PackageDetailsRepository : ICrud<PackageDetails, IdDTO>, IImageRepo<PackageDetails, PlaceFormModel>
-    {
+    {   
         private readonly TripBookingContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
 
@@ -32,7 +32,6 @@ namespace TripBooking.Repos
                     await _context.SaveChangesAsync();
                     return item;
                 }
-
                 return null;
             }
             catch (SqlException se)
@@ -131,6 +130,7 @@ namespace TripBooking.Repos
             pack.PlaceId=placeFormModel.PlaceId;
             pack.DayNumber= placeFormModel.DayNumber;
             pack.PlaceImagepath = PlaceImagepath;
+            pack.Itinerary = placeFormModel.Itinerary;
             _context.PackageDetails.Add(pack);
             await _context.SaveChangesAsync();
             return pack;
