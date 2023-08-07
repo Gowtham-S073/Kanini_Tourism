@@ -361,7 +361,7 @@ const Popup = ({ modalIsOpen, setModalIsOpen, handleFileChange, handleInputChang
         <option value="gallery">gallery</option>
       </select>
       <br />
-      <button className="addimage" type="button" onClick={() => postToDb()}>
+      <button className="addimage" type="button" style={{marginTop:'300px',left:'10px'}} onClick={() => postToDb()}>
         Add
       </button>
     </Modal>

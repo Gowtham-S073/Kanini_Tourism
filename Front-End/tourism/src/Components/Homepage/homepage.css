@@ -1,0 +1,100 @@
+.faq-accordion {
+    padding: 2rem 0;
+  }
+  
+  .faq-accordion h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .accordion-item {
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+    padding: 1rem;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .accordion-item.active {
+    background-color: #f5f5f5;
+  }
+  
+  .accordion-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .accordion-content {
+    display: none;
+    padding: 1rem 0;
+  }
+  
+  .accordion-item.active .accordion-content {
+    display: block;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .faq-accordion {
+      padding: 1rem 0;
+    }
+  
+    .faq-accordion h2 {
+      font-size: 2rem;
+    }
+  
+    .accordion-item {
+      padding: 0.75rem;
+    }
+  }
+  
+/* -----------------------------------------   */
+
+.main-heading {
+    padding: 2rem 0;
+    text-align: center;
+  }
+  
+  .main-heading h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+  
+  .main-heading p {
+    font-size: 1.2rem;
+    color: #555;
+  }
+/* ---------------------------------------------------   */
+
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .video-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .text-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+  }
+  
+  .text-overlay h1 {
+    font-size: 3rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+  }

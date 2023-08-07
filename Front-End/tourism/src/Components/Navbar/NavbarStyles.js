@@ -26,7 +26,7 @@ ul {
   gap: 1rem;
   list-style-type: none;
   li {
-    a {
+    p {
       text-decoration: none;
       padding-top:10px;
       color: #0077b6;
@@ -40,12 +40,13 @@ ul {
       }
     }
     &:first-of-type {
-      a {
+      p {
         color: #023e8a;
         font-weight:bolder;
         &:hover{
             color: #ffff;
             background-color:#007bff;
+            text-decoration:none;
         }
       }
     }
@@ -101,8 +102,8 @@ ul {
     width: 100%;
     margin: 1rem 0;
     margin-left: 2rem;
-
-    a {
+    text-decoration: none;
+    p {
       text-decoration: none;
       color: #0077b6;
       font-size: 1.2rem;
@@ -112,7 +113,7 @@ ul {
       }
     }
     &:first-of-type {
-      a {
+      p {
         color: #023e8a;
         font-weight: 900;
       }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from './Components/Navbar/Navbar';
 import Contact from './Components/ContactPage/Contact';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, BrowserRouter } from 'react-router-dom';
 import Feedback from './Components/FeedBack/FeedbackPage';
 import Preloader from './Components/Preloader/Preloader';
 import Hero from './Components/Hero/Hero';
@@ -16,8 +16,12 @@ import Gallery from './Components/GalleryPage/Gallery';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Admin from './Components/Admin/Admin';
 import Package from './Components/Agent/Package';
-import TravelAgent from './Components/Agent/TravelAgent';
 import ProductCard from './Components/Agent/ProductCard';
+import Home from './Components/Homepage/homepage';
+import { useParams } from 'react-router-dom';
+import Agent from './Components/Agent/Agent';
+
+
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -61,23 +65,44 @@ function App() {
         <Preloader />
       ) : (
         <div className="app">
-       
+          <BrowserRouter>
+            <Navbar></Navbar>
+            <Routes>
+            <Route path='/' element={<Hero></Hero>}></Route>
+              <Route path='Contact' element={<Contact></Contact>}></Route>
+              <Route path='Login' element={<Login></Login>}></Route>
+              <Route path='Feedback' element={<Feedback></Feedback>}></Route>
+              <Route path='Register' element={<Register></Register>}></Route>
+              <Route path='Package' element={<Package></Package>}></Route>
+              <Route path='PostImage' element={<Admin></Admin>}></Route>
+              <Route path='Gallery' element={<Gallery></Gallery>}></Route>
+              <Route path='ProductCard' element={<ProductCard></ProductCard>}></Route>
+              <Route path='Admin' element={<Admin></Admin>}></Route>
+              <Route path='Agent' element={<Agent></Agent>}></Route>
+              {/* <Route path='' element={}></Route>
+              <Route path='' element={}></Route>
+              <Route path='' element={}></Route>
+              <Route path='' element={}></Route>
+              <Route path='' element={}></Route> */}
+            </Routes>
+          </BrowserRouter>
 
-           <Navbar></Navbar> 
-           <Hero></Hero>
+           {/* <Navbar></Navbar>  */}
+           {/* <Hero></Hero> */}
           {/* <Card></Card> */}
           {/* <Contact></Contact> */}
           {/* <Feedback></Feedback> */}
           {/* <News></News> */}
           {/* <Testimonials></Testimonials> */}
           {/* <Recommend></Recommend> */}
-          <Login></Login>
-          <ProductCard></ProductCard>
-          <Admin></Admin> 
-          <Gallery/>
-          <Package></Package>
-          <Register></Register>
-          <TravelAgent></TravelAgent>
+          {/* <Login></Login> */}
+          {/* <Home></Home> */}
+          {/* <ProductCard></ProductCard> */}
+          {/* <Admin></Admin>  */}
+          {/* <Gallery/> */}
+          {/* <Package></Package> */}
+          {/* <Register></Register> */}
+          {/* <TravelAgent></TravelAgent> */}
           <Footer></Footer>
           <ScrollToTop></ScrollToTop>
           {/* <Slider images={images} /> */}
