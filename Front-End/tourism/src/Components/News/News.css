@@ -1,0 +1,64 @@
+/* News.css */
+
+.news-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 100px;
+  }
+  
+  .news-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .news-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+  
+  .news-card-content {
+    padding: 20px;
+  }
+  
+  .news-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .news-description {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 16px;
+  }
+  
+  .read-more-link {
+    font-weight: bold;
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .news-tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+  
+  .news-tag {
+    background-color: #f2f2f2;
+    color: #333;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 16px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+  }
+  
+  /* Add more styles as needed to customize the design */
+  

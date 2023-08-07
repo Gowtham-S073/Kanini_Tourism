@@ -13,8 +13,8 @@ export default function Navbar() {
       <Nav>
         <div className="brand">
           <div className="container">
-            <img src={logo} alt="" />
-            Kanini
+            <img src={logo} style={{width:'250px', borderRadius:'30px', marginLeft:'20px'}} alt="" />
+
           </div>
           <div className="toggle">
             {navbarState ? (
@@ -25,7 +25,7 @@ export default function Navbar() {
           </div>
         </div>
 
-        <ul>
+        <ul style={{fontSize:'25px', paddingTop:'20px'}}>
           <li>
             <a href="#home"><BsHouseFill></BsHouseFill> Home </a>
           </li>

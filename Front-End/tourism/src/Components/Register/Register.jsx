@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import logo from '../../Assests/logo.png';
 import './Register.css'; // Create a CSS file for RegisterPage styles
+import axios from 'axios';
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -8,14 +9,30 @@ const RegisterPage = () => {
     phone: '',
     email: '',
     name: '',
-    password: '',
-    confirmPassword: '',
-    role: 'User',
+    userPassword: '',
+    role: ''
   });
 
+  const registerData = async () => {
+    try {
+      const response = await axios.post(
+        'https://localhost:7290/api/Users/Register',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      console.log(response?.data);
+      console.log(response);
+    } catch (error) {
+      console.log('Error:', error.message);
+      console.log('Response data:', error.response?.data);
+    }
+  };
+
   const [passwordError, setPasswordError] = useState('');
-  const [fieldTouched, setFieldTouched] = useState({});
-  const [phoneError, setPhoneError] = useState('');
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -25,22 +42,16 @@ const RegisterPage = () => {
     });
   };
 
-  const handleInputBlur = (e) => {
-    const { name } = e.target;
-    setFieldTouched({
-      ...fieldTouched,
-      [name]: true,
-    });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
-    // Add your registration logic here
   };
 
   const handleConfirmPassword = () => {
-    return formData.password === formData.confirmPassword;
+    if (formData.userPassword !== formData.confirmPassword) {
+      return false;
+    }
+    return true;
   };
 
   const validatePassword = (password) => {
@@ -49,29 +60,26 @@ const RegisterPage = () => {
     return passwordPattern.test(password);
   };
 
-  const isFormValid = () => {
-    const isPasswordValid = validatePassword(formData.password) && handleConfirmPassword();
-    const isFormFilled = Object.values(formData).every((value) => value !== '');
-
-    // Additional validation for Username and Name fields
-    const isUsernameValid = formData.username.length >= 3;
-    const isNameValid = formData.name.length >= 3;
-    const isPhoneValid = /^\d+$/.test(formData.phone);
-
-    return (
-      isPasswordValid &&
-      isFormFilled &&
-      isUsernameValid &&
-      isNameValid &&
-      isPhoneValid
-    );
+  const handlePasswordChange = (e) => {
+    const { value } = e.target;
+    setFormData({
+      ...formData,
+      userPassword: value,
+    });
+    if (!validatePassword(value)) {
+      setPasswordError(
+        'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.'
+      );
+    } else {
+      setPasswordError('');
+    }
   };
 
   return (
     <div className="register-page">
-      <div className="logo">
+      {/* <div className="logo">
         <img src={logo} alt="Logo" />
-      </div>
+      </div> */}
       <div className="register-form">
         <h2>Register</h2>
         <form onSubmit={handleSubmit}>
@@ -83,12 +91,8 @@ const RegisterPage = () => {
               name="username"
               value={formData.username}
               onChange={handleInputChange}
-              onBlur={handleInputBlur}
               required
             />
-            {fieldTouched.username && formData.username.length < 3 && (
-              <span className="error">Username must be at least 3 characters long.</span>
-            )}
           </div>
           <div className="form-group">
             <label htmlFor="phone">Phone:</label>
@@ -98,12 +102,8 @@ const RegisterPage = () => {
               name="phone"
               value={formData.phone}
               onChange={handleInputChange}
-              onBlur={handleInputBlur}
               required
             />
-            {fieldTouched.phone && !/^\d+$/.test(formData.phone) && (
-              <span className="error">Type only numbers in the Phone field.</span>
-            )}
           </div>
           <div className="form-group">
             <label htmlFor="email">Email:</label>
@@ -113,7 +113,6 @@ const RegisterPage = () => {
               name="email"
               value={formData.email}
               onChange={handleInputChange}
-              onBlur={handleInputBlur}
               required
             />
           </div>
@@ -125,22 +124,17 @@ const RegisterPage = () => {
               name="name"
               value={formData.name}
               onChange={handleInputChange}
-              onBlur={handleInputBlur}
               required
             />
-            {fieldTouched.name && formData.name.length < 3 && (
-              <span className="error">Name must be at least 3 characters long.</span>
-            )}
           </div>
           <div className="form-group">
             <label htmlFor="password">Password:</label>
             <input
               type="password"
               id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleInputChange}
-              onBlur={handleInputBlur}
+              name="userPassword"
+              value={formData.userPassword}
+              onChange={handlePasswordChange}
               required
             />
             {passwordError && <span className="error">{passwordError}</span>}
@@ -153,10 +147,9 @@ const RegisterPage = () => {
               name="confirmPassword"
               value={formData.confirmPassword}
               onChange={handleInputChange}
-              onBlur={handleInputBlur}
               required
             />
-            {!handleConfirmPassword() && fieldTouched.confirmPassword && (
+            {!handleConfirmPassword() && (
               <span className="error">Passwords do not match.</span>
             )}
           </div>
@@ -167,22 +160,14 @@ const RegisterPage = () => {
               name="role"
               value={formData.role}
               onChange={handleInputChange}
-              onBlur={handleInputBlur}
               required
             >
-              <option value="Admin">Admin</option>
               <option value="User">User</option>
               <option value="Agent">Agent</option>
             </select>
           </div>
           <div className="form-group">
-            <button
-              className="btn btn-primary"
-              type="submit"
-              disabled={!isFormValid()}
-            >
-              Register
-            </button>
+            <button onClick={registerData}>Register</button>
           </div>
         </form>
       </div>

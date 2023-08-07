@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { FaUser, FaLock } from 'react-icons/fa';
+import logo from '../../Assests/logo.png';
 import './Login.css';
+import axios from 'axios'; // Import axios library
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -15,52 +17,72 @@ const Login = () => {
   };
 
   const isFormValid = () => {
-    const isUsernameValid = username.trim() !== '';
-    const isPasswordValid = password.trim() !== '';
+    // Check if username and password are not empty
+    if (username.trim() === '' || password.trim() === '') {
+      return false;
+    }
 
-    return isUsernameValid && isPasswordValid;
+    // Password validation
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:'",<.>/?]).{8,}$/;
+    return passwordRegex.test(password);
   };
 
-  const handleLoginClick = () => {
+  const handleLogin = () => {
     if (isFormValid()) {
-      // Perform login action here (e.g., API call, authentication)
-      alert('Logged in successfully!');
+      // Create an object containing the username and password data
+      const loginData = {
+        username: username,
+        password: password,
+      };
+
+      // Make the POST API request to the backend
+      axios
+        .post('https://localhost:7290/api/Users/LogIN', loginData) // Replace 'YOUR_BACKEND_API_URL' with the actual URL of your backend API
+        .then((response) => {
+          console.log('Login successful!');
+          // Handle the response data from the backend if needed
+        })
+        .catch((error) => {
+          console.log('Login failed:', error);
+          // Handle any errors that occur during the API call
+        });
     } else {
-      alert('Please fill in all fields.');
+      console.log('Invalid form data.');
     }
   };
 
   return (
     <div className="login-page">
+      {/* <div className="logo">
+        <img src={logo} alt="Website Logo" />
+      </div> */}
       <div className="login-form">
         <h2>Login</h2>
         <div className="form-group">
-          <label htmlFor="username" className="icon-input">
-            UserName
-            <FaUser />
-            <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={handleUsernameChange}
-              placeholder="Username"
-            />
+          <label htmlFor="username">
+            <FaUser />Username:
           </label>
+          <input
+            type="text"
+            id="username"
+            value={username}
+            onChange={handleUsernameChange}
+            placeholder="Enter your username"
+          />
         </div>
         <div className="form-group">
-          <label htmlFor="password" className="icon-input">
-            Password
-            <FaLock />
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={handlePasswordChange}
-              placeholder="Password"
-            />
+          <label htmlFor="password">
+            <FaLock /> Password:
           </label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={handlePasswordChange}
+            placeholder="Enter your password"
+          />
         </div>
-        <button className="btn btn-primary" onClick={handleLoginClick} disabled={!isFormValid()}>
+        <button className="btn btn-primary" onClick={handleLogin} disabled={!isFormValid()}>
           Login
         </button>
       </div>

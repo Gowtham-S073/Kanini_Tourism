@@ -8,34 +8,27 @@ import Hero from './Components/Hero/Hero';
 import Footer from './Components/Footer/Footer';
 import Recommend from './Components/Hero/Recommend';
 import ScrollToTop from './Components/ScrolltoTop/ScrolltoTop';
-import Services from './Components/Servic/Service';
+import News from './Components/News/News';
 import Testimonials from './Components/Hero/Testimonial';
 import Login from './Components/Login/Login';
 import Register from './Components/Register/Register';
-import GalleryPage from './Components/GalleryPage/GalleryPage';
+import Gallery from './Components/GalleryPage/Gallery';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
-import Pdf from './Components/Hero/pdf';
+import Admin from './Components/Admin/Admin';
+import Package from './Components/Agent/Package';
+import TravelAgent from './Components/Agent/TravelAgent';
+import ProductCard from './Components/Agent/ProductCard';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const [loader, setLoader] = useState(false);
 
-  
-  const downloadPDF = () =>{
-    const capture = document.querySelector('.actual-receipt');
-    setLoader(true);
-    html2canvas(capture).then((canvas)=>{
-      const imgData = canvas.toDataURL('img/png');
-      const doc = new jsPDF('p', 'mm', 'a4');
-      const componentWidth = doc.internal.pageSize.getWidth();
-      const componentHeight = doc.internal.pageSize.getHeight();
-      doc.addImage(imgData, 'PNG', 0, 0, componentWidth, componentHeight);
-      setLoader(false);
-      doc.save('receipt.pdf');
-    })
-  }
+  const images = [
+    'https://rawgit.com/creativetimofficial/material-kit/master/assets/img/bg.jpg',
+    'https://rawgit.com/creativetimofficial/material-kit/master/assets/img/bg2.jpg',
+    'https://rawgit.com/creativetimofficial/material-kit/master/assets/img/bg3.jpg',
+    // Add more image URLs as needed
+  ];
+
 
   useEffect(() => {
     setTimeout(() => {
@@ -69,22 +62,26 @@ function App() {
       ) : (
         <div className="app">
        
+
            <Navbar></Navbar> 
-           {/* <Hero></Hero> */}
+           <Hero></Hero>
           {/* <Card></Card> */}
           {/* <Contact></Contact> */}
           {/* <Feedback></Feedback> */}
-          {/* <Services></Services> */}
+          {/* <News></News> */}
           {/* <Testimonials></Testimonials> */}
           {/* <Recommend></Recommend> */}
-          <Login></Login> 
+          <Login></Login>
+          <ProductCard></ProductCard>
+          <Admin></Admin> 
+          <Gallery/>
+          <Package></Package>
           <Register></Register>
-          <Pdf></Pdf>
-          <GalleryPage></GalleryPage>
+          <TravelAgent></TravelAgent>
           <Footer></Footer>
           <ScrollToTop></ScrollToTop>
           {/* <Slider images={images} /> */}
-
+         
         </div>
       )}
     </>

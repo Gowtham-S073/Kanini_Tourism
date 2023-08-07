@@ -62,23 +62,3 @@
     max-width: 100%;
   }
 }
-
-
-
-/* Login.css */
-.icon-input {
-  display: flex;
-  align-items: center;
-  position: relative;
-}
-
-.icon-input input {
-  padding-left: 30px; /* Adjust this value to set the distance between icon and input text */
-}
-
-.icon-input svg {
-  position: absolute;
-  top: 30px;
-  left: 320px; /* Adjust this value to set the position of the icon */
-  font-size: 20px;
-}

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import homeImage from "../../Assests/hero.png";
+import Services from '../Servic/Service';
 
 
 export default function Hero() {
@@ -38,6 +39,8 @@ export default function Hero() {
           <button>Explore Now</button>
         </div>
       </div>
+      <Services></Services>
+      
     </Section>
   );
 }

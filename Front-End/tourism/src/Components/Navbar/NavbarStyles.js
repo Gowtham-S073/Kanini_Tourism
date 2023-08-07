@@ -28,10 +28,11 @@ ul {
   li {
     a {
       text-decoration: none;
+      padding-top:10px;
       color: #0077b6;
       font-weight:bolder;
-      padding:8px;
-      border-radius: 1.1rem;
+      padding:12px;
+      border-radius: 30px;
       transition: 0.1s ease-in-out;
       &:hover {
         color: #ffff;

@@ -1,0 +1,107 @@
+/* Admin.css */
+
+/* Container styles */
+.table-container {
+    max-width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #fff;
+  }
+  
+  /* Table styles */
+  .responsive-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .responsive-table th,
+  .responsive-table td {
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .responsive-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  /* Button styles */
+  button {
+    padding: 8px 16px;
+    margin: 4px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  .Approvebutton {
+    background-color: #28a745;
+  }
+  
+  .Declinebutton {
+    background-color: #dc3545;
+  }
+  
+  /* Modal styles */
+  .ReactModal__Overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+  
+  .ReactModal__Content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 30%;
+    max-height: 40%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #fff;
+  }
+  
+  .ReactModal__Content button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    font-size: 18px;
+    color: #333;
+  }
+  
+  .ReactModal__Content label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+  
+  .ReactModal__Content select,
+  .ReactModal__Content input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .ReactModal__Content button.addimage {
+    width: 100%;
+    padding: 8px 0;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+  }
+  
+  /* Add more styles as needed to customize the design */
+  
