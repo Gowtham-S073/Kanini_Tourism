@@ -1,48 +1,50 @@
 import React from "react";
 import styled from "styled-components";
-import avatarImage from "../../Assests/avatarImage.jpeg";
+import avatarImage from "../../Assests/avatarImage.jpg";
 export default function Testimonials() {
   return (
     <Section id="testimonials">
       <div className="title">
-        <h2>Happy Customers</h2>
+        <h2>Happy Customers``</h2>
       </div>
       <div className="testimonials">
         <div className="testimonial">
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate
-            asperiores eaque.
+          
+I am back from the Unique Swiss Paris Mode. I can describe it in one line - I think I died and went to heaven and now I am back :) The whole trip was a Karmic Connection and I felt I was in a dream
+
+
           </p>
           <div className="info">
             <img src={avatarImage} alt="123" />
             <div className="details">
-              <h4>Kishan Sheth</h4>
-              <span>CEO - Shashaan Web Solutions</span>
+              <h4>- ROOPA SOMASUNDARAN</h4>
+              <span></span>
             </div>
           </div>
         </div>
         <div className="testimonial">
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate
-            asperiores eaque.
+          Many Thanks for your effort with me. Be sure for my coming trips it will be with you as i was very pleased with your professionalization. Once again thank you personally and thanks TripBooking.
           </p>
           <div className="info">
             <img src={avatarImage} alt="23456" />
             <div className="details">
-              <h4>Kishan Sheth</h4>
-              <span>CEO - Shashaan Web Solutions</span>
+              <h4>- PARAG RAMCHANDRA PHADKE</h4>
+              <span></span>
             </div>
           </div>
         </div>
         <div className="testimonial">
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate
-            asperiores eaque.
+          The telephone Customer service team was very supportive. Special mention about Puneet Sharma, who was very helpful and patient in handling all queries and all bookings were done professionally by him.
+
+
           </p>
           <div className="info">
             <img src={avatarImage} alt="6789" />
             <div className="details">
-              <h4>Kishan Sheth</h4>
+              <h4>- UDAY KUMAR SARMA</h4>
               <span>CEO - Shashaan Web Solutions</span>
             </div>
           </div>

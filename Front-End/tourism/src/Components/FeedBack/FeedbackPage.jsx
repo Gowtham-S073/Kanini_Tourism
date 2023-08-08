@@ -21,7 +21,7 @@ const Feedback = () => {
   };
 
   return (
-
+    <div className='Feedback-bg'>
     <div className='Feedback_Form'>
       <h1>Give Your Valuable Feedback :</h1>
       <br></br><br></br>
@@ -43,6 +43,7 @@ const Feedback = () => {
         <textarea name="message" />
         <input type="submit" value="Send" />
       </form>
+    </div>
     </div>
   );
 };

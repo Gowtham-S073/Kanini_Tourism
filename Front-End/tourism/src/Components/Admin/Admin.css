@@ -8,6 +8,7 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     background: #fff;
+    padding-bottom: 550px;
   }
   
   /* Table styles */
@@ -105,3 +106,30 @@
   
   /* Add more styles as needed to customize the design */
   
+  .center-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 30vh;
+  }
+  
+  .center-button h2 {
+    color: white;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-shadow: 2px;
+  }
+  .center-heading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  /* Admin.css */
+.admin-container {  
+  background-image: url('../../Assests/Admin_bg.jpg');
+  background-size: cover;
+  background-position: center;
+}

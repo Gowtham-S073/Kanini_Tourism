@@ -7,6 +7,8 @@ import axios from 'axios'; // Import axios library
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [response, setResponse] = useState({})
+
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -40,6 +42,29 @@ const Login = () => {
         .post('https://localhost:7290/api/Users/LogIN', loginData) // Replace 'YOUR_BACKEND_API_URL' with the actual URL of your backend API
         .then((response) => {
           console.log('Login successful!');
+          setResponse(response.data);
+
+          // Extract data from the response
+          const { email, username, role, token } = response.data;
+
+          // Store the extracted data in the sessionStorage
+          sessionStorage.setItem('email', email);
+          sessionStorage.setItem('name', username);
+          sessionStorage.setItem('role', role);
+          sessionStorage.setItem('token', token);
+          // Check if 'role' is available in sessionStorage
+          if (role) {
+            // Perform any actions you need with the role here
+
+            // Redirect the user to the home page
+            window.location.href = 'Home';
+          } else {
+            console.log('else')
+            // Handle the case when 'role' is not available in sessionStorage
+            // Redirect the user to some other page or display an error message
+            alert("Either Username or Password is invalid");
+          }
+          // window.location.href = '/';
           // Handle the response data from the backend if needed
         })
         .catch((error) => {
@@ -49,6 +74,7 @@ const Login = () => {
     } else {
       console.log('Invalid form data.');
     }
+
   };
 
   return (

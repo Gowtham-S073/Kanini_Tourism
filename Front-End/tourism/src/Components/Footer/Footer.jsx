@@ -8,7 +8,7 @@ export default function Footer() {
       <span>Copyright &copy; 2021 TripBooking. All rights reserved</span>
       <ul className="links">
         <li>
-          <a href="#hero">Home</a>
+          <a href="#hero">Phone</a>
         </li>
         <li>
           <a href="#services">About</a>

@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import homeImage from "../../Assests/hero.png";
-
+import Testimonials from "./Testimonial";
+import Service from '../Servic/Service';
 
 export default function Hero() {
   const currentDate = new Date();
@@ -9,6 +10,7 @@ export default function Hero() {
   afterDate.setDate(afterDate.getDate() + 1);
 
   return (
+    <>
     <Section className="hero">
       <div className="background">
         <img src={homeImage} alt="" />
@@ -17,12 +19,11 @@ export default function Hero() {
         <div className="title">
           <h1>TRAVEL TO EXPLORE</h1>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere
-            natus, enim ipsam magnam odit deserunt itaque? Minima earum velit
-            tenetur!
+          "Travel makes one modest, you see what a tiny place you occupy in the world."<br></br>  
+          - Gustave Flaubert
           </p>
         </div>
-        <div className="search">
+        {/* <div className="search">
           <div className="container">
             <label htmlFor="">Where you want to go</label>
             <input type="text" placeholder="Search Your location" />
@@ -36,9 +37,13 @@ export default function Hero() {
             <input type="date" id="check-out" min={afterDate.toISOString().split('T')[0]} />
           </div>
           <button>Explore Now</button>
-        </div>
+        </div> */}
       </div>
     </Section>
+      
+    <Service></Service>
+    <Testimonials></Testimonials>
+    </>
   );
 }
 
@@ -69,6 +74,7 @@ const Section = styled.section`
     .title {
       color: white;
       h1 {
+        padding-bottom:30px;
         font-size: 3rem;
         letter-spacing: 0.2rem;
       }

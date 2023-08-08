@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 
-export default function Navbar() {
+const Navbar = () => {
   const [selectedOption, setSelectedOption] = useState('user') // Default value is 'user'
   const [role, setRole] = useState(null)
   const [admin, setAdmin] = useState(false)
@@ -43,6 +43,11 @@ export default function Navbar() {
     window.location.href = '/'
   }
 
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value)
+  }
+
+
   const handleSubmit = (event) => {
     event.preventDefault()
     // Handle form submission based on selectedOption value
@@ -62,7 +67,7 @@ export default function Navbar() {
         <div className="brand">
           <div className="container">
             <Link to="/">
-              <img src={logo} style={{width:'250px', borderRadius:'30px', marginLeft:'20px'}} alt="" />
+              <img src={logo} style={{ width: '250px', borderRadius: '30px', marginLeft: '20px' }} alt="" />
             </Link>
           </div>
           <div className="toggle">
@@ -74,52 +79,94 @@ export default function Navbar() {
           </div>
         </div>
 
-        <ul style={{fontSize:'25px', paddingTop:'20px'}}>
+        <ul style={{ fontSize: '25px', paddingTop: '20px', textDecoration: 'none' }}>
           <li>
-          <Link to="/">
-            <p href="#home"><BsHouseFill></BsHouseFill>Home</p>
-          </Link>
+            {nouser && (
+              <Link to="/" style={{ textDecoration: 'none' }}>
+                <p><BsHouseFill></BsHouseFill>Home</p>
+              </Link>
+            )}
+
           </li>
           <li>
-            <Link to ="Admin">
-            <p>Approve Agent</p>
-            </Link>
+            {(agent || admin || userIn) && (
+              <Link to="Home" style={{ textDecoration: 'none' }}>
+                <p ><BsHouseFill></BsHouseFill>Home</p>
+              </Link>
+            )}
+
           </li>
-          <li>
-            <Link to ="Login">
-              <p>Login</p>
-            </Link>
-          </li>
-          <li>
-            <Link to="Agent">
-            <p>Add Place</p>
-            </Link>
-          </li>
-          <li>
-            <Link to="Register">
-            <p>Register</p>
-            </Link>
-          </li>
-          <li>
-            <Link to="Package">
-            <p href="#testimonials">Packages</p>
-            </Link>
-          </li>
-          <li>
-            <Link to="ProductCard">
-            <p href="#testimonials">Package Details</p>
-            </Link>
-          </li>
-          <li>
-            <Link to='Gallery'>
-              <p>Gallery</p>
-            </Link>
-          </li>
-          <li>
-            <p href="#testimonials">Logout</p>
-          </li>
+          {admin && (
+            <li>
+              <Link to="Admin" style={{ textDecoration: 'none' }}>
+                <p>DashBoard</p>
+              </Link>
+            </li>
+          )}
+          {nouser && (
+            <li>
+              <Link to="Login" style={{ textDecoration: 'none' }}>
+                <p>Login</p>
+              </Link>
+            </li>
+          )}
+          {agent && (
+            <li>
+              <Link to="Agent" style={{ textDecoration: 'none' }}>
+                <p>Add Place</p>
+              </Link>
+            </li>
+          )}
+          {nouser && (
+            <li>
+              <Link to="Register" style={{ textDecoration: 'none' }}>
+                <p>Register</p>
+              </Link>
+            </li>
+          )}
+          {(userIn || nouser) && (
+            <li>
+              <Link to="FeedBack" style={{ textDecoration: 'none' }}>
+                <p >FeedBack</p>
+              </Link>
+            </li>
+          )}
+          {(userIn) && (
+            <li>
+              <Link to="ProductCard" style={{ textDecoration: 'none' }}>
+                <p >Package Details</p>
+              </Link>
+            </li>
+          )}
+          {(userIn || admin) && (
+            <li>
+              <Link to='Gallery' style={{ textDecoration: 'none' }}>
+                <p>Gallery</p>
+              </Link>
+            </li>
+          )}
+          {(userIn || admin || agent) && (
+            <li>
+              <Link to='News' style={{ textDecoration: 'none' }}>
+                <p>News</p>
+              </Link>
+            </li>
+          )}
+          {(agent || admin || userIn) && (
+            <li>
+              <p style={{ cursor: 'pointer' }} onClick={logoutFn}>
+                Logout
+              </p>
+            </li>
+          )}
+
         </ul>
-        <button> <BsFillArrowRightCircleFill />Connect</button>
+        {nouser && (
+          <ul> <Link to="/Contact" style={{ textDecoration: 'none' }}>
+          <button><BsFillArrowRightCircleFill />Contact</button>
+        </Link>
+          </ul>
+        )}
       </Nav>
       <ResponsiveNav state={navbarState}>
         <ul>
@@ -138,9 +185,11 @@ export default function Navbar() {
               Places
             </a>
           </li>
-        
+
         </ul>
       </ResponsiveNav>
     </>
   );
 }
+
+export default Navbar;

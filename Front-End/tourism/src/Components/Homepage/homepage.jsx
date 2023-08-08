@@ -5,6 +5,8 @@ import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
+import Hero from '../Hero/Hero';
+import Recommend from '../Hero/Recommend';
 
 const AccordionContainer = styled('div')({
   padding: '40px',
@@ -55,7 +57,8 @@ export default function CustomizedAccordions() {
 
   return (
     <>
-    
+    <Hero></Hero>
+    <Recommend></Recommend>
     <AccordionContainer>
       <h1>FAQs</h1>
       <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>

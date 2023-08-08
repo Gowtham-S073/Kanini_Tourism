@@ -1,5 +1,16 @@
 /* feedback.css */
 
+.Feedback-bg{
+  background: url('https://www.newbreedrevenue.com/hs-fs/hubfs/shutterstock_695711272.jpg') center/cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f2f2f2;
+  background-repeat:no-repeat;
+  background-size: cover;
+}
 .Feedback_Form {
   padding-top: 10%;
   max-width: 600px;

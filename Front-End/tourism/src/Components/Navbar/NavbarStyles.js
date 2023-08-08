@@ -6,6 +6,7 @@ justify-content: space-between;
 align-items: center;
 padding-top: 18px;
 padding-bottom: 18px;
+
 .brand {
   .container {
     cursor: pointer;
@@ -25,6 +26,7 @@ ul {
   display: flex;
   gap: 1rem;
   list-style-type: none;
+  text-decoration:none;
   li {
     p {
       text-decoration: none;
@@ -79,9 +81,11 @@ button {
   }
   ul {
     display: none;
+    text-decoration:none;
   }
   button {
     display: none;
+    text-decoration:none;
   }
 }`;
 
@@ -98,6 +102,7 @@ transition: 0.3s ease-in-out;
 ul {
   list-style-type: none;
   width: 100%;
+  text-decoration:none;
   li {
     width: 100%;
     margin: 1rem 0;
@@ -116,6 +121,7 @@ ul {
       p {
         color: #023e8a;
         font-weight: 900;
+        text-decoration:none;
       }
     }
   }

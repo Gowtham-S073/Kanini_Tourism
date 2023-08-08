@@ -17,27 +17,32 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Admin from './Components/Admin/Admin';
 import Package from './Components/Agent/Package';
 import ProductCard from './Components/Agent/ProductCard';
-import Home from './Components/Homepage/homepage';
+import Home from './Components/Homepage/Homepage';
 import { useParams } from 'react-router-dom';
 import Agent from './Components/Agent/Agent';
+import Error from './Components/Error';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
 
+  const userRole = sessionStorage.getItem('role');
+
+
   const images = [
     'https://rawgit.com/creativetimofficial/material-kit/master/assets/img/bg.jpg',
     'https://rawgit.com/creativetimofficial/material-kit/master/assets/img/bg2.jpg',
     'https://rawgit.com/creativetimofficial/material-kit/master/assets/img/bg3.jpg',
-    // Add more image URLs as needed
   ];
 
 
   useEffect(() => {
     setTimeout(() => {
-      setIsLoading(false); 
-    }, 3000); 
+      setIsLoading(false);
+    }, 3000);
 
     const innerCursor = document.querySelector('.inner-cursor');
     const outerCursor = document.querySelector('.outer-cursor');
@@ -68,27 +73,36 @@ function App() {
           <BrowserRouter>
             <Navbar></Navbar>
             <Routes>
-            <Route path='/' element={<Hero></Hero>}></Route>
+              <Route path='/' element={<Hero></Hero>}></Route>
               <Route path='Contact' element={<Contact></Contact>}></Route>
               <Route path='Login' element={<Login></Login>}></Route>
               <Route path='Feedback' element={<Feedback></Feedback>}></Route>
               <Route path='Register' element={<Register></Register>}></Route>
-              <Route path='Package' element={<Package></Package>}></Route>
               <Route path='PostImage' element={<Admin></Admin>}></Route>
               <Route path='Gallery' element={<Gallery></Gallery>}></Route>
               <Route path='ProductCard' element={<ProductCard></ProductCard>}></Route>
               <Route path='Admin' element={<Admin></Admin>}></Route>
               <Route path='Agent' element={<Agent></Agent>}></Route>
-              {/* <Route path='' element={}></Route>
+              <Route path='News' element={<News></News>}></Route>
+              <Route path="Home" element={<Home></Home>}></Route>
+              <Route path='/Login' element={(userRole !== 'Admin' && userRole !=='Agent' && userRole !=='User') ?<Login />:<Error/>} />
+              <Route path='/Register' element={(userRole !== 'Admin' && userRole !=='Agent' && userRole !=='User') ?<Register />:<Error/>} />
+              <Route path='/Contact' element={(userRole === 'Admin' || userRole ==='User'|| userRole===null) ?<Contact />:<Error/>} />
+              <Route path='*' element={<Error />} />
+
+
+              {/* <Route pa th='' element={}></Route>
               <Route path='' element={}></Route>
               <Route path='' element={}></Route>
               <Route path='' element={}></Route>
               <Route path='' element={}></Route> */}
             </Routes>
+            <Footer></Footer>
+          <ScrollToTop></ScrollToTop>
           </BrowserRouter>
 
-           {/* <Navbar></Navbar>  */}
-           {/* <Hero></Hero> */}
+          {/* <Navbar></Navbar>  */}
+          {/* <Hero></Hero> */}
           {/* <Card></Card> */}
           {/* <Contact></Contact> */}
           {/* <Feedback></Feedback> */}
@@ -103,10 +117,8 @@ function App() {
           {/* <Package></Package> */}
           {/* <Register></Register> */}
           {/* <TravelAgent></TravelAgent> */}
-          <Footer></Footer>
-          <ScrollToTop></ScrollToTop>
           {/* <Slider images={images} /> */}
-         
+
         </div>
       )}
     </>

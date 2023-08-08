@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import logo from "../../Assests/logo.png";
+import logo2 from "../../Assests/logo2.png";
+
 export default function ScrollToTop() {
   const [scrollState, setScrollState] = useState(false);
   const toTop = () => {
@@ -11,7 +12,7 @@ export default function ScrollToTop() {
   });
   return (
     <ToTop onClick={toTop} scrollState={scrollState}>
-      <img src={logo} alt="" />
+      <img src={logo2} alt="" />
     </ToTop>
   );
 }
