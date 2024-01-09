@@ -17,7 +17,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Admin from './Components/Admin/Admin';
 import Package from './Components/Agent/Package';
 import ProductCard from './Components/Agent/ProductCard';
-import Home from './Components/Homepage/Homepage';
+import Home from './Components/Homepage/homepage';
 import { useParams } from 'react-router-dom';
 import Agent from './Components/Agent/Agent';
 import Error from './Components/Error';
@@ -91,7 +91,7 @@ function App() {
               <Route path='*' element={<Error />} />
 
 
-              {/* <Route pa th='' element={}></Route>
+              {/* <Route path='' element={}></Route>
               <Route path='' element={}></Route>
               <Route path='' element={}></Route>
               <Route path='' element={}></Route>
